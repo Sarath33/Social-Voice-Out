@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>post_page</title>
+    <link rel="stylesheet" href="/static/bootstrap2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css2/styles.css">
+</head>
+<style type='text/css'>
+
+
+
+    </style>
+<body ><div style="background-image: url('https://images.unsplash.com/photo-1605478233349-dd71e7d8862a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80');">
+    <div style="height: 89px;background-color: #121111;">
+        <p class="text-center" style="color: rgb(238,241,244);font-size: 26px;margin-top: 0px;padding-top: 14px;height: 62px;">SOCIAL VOICE OUT</p>
+        <nav class="navbar navbar-light navbar-expand-md" style="background-color: #7b9979;height: 30px;padding: 0px;">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav" style="width: 100%;height: 30px;">
+                    <div class="dropdown" style="margin-left: 42%">
+                  
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" style="height: 30px;font-size: 19px;padding: 0px;" >MY&nbsp; PROFILE&nbsp;<i class="fa fa-user"></i></button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/admin">Logout</a>
+                        </div>
+                </div>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <nav class="navbar navbar-light navbar-expand-md" style="margin-top: 16px;">
+        <div class="container-fluid"><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav" style="margin-left: 0px;width: 100%;">
+                    <li class="nav-item" role="presentation" style="margin-left: 0px;width: 48%;background-color: #e8e3e3;">
+                        
+                            <a class="nav-link text-center" href="/get_admin/scope=<%=admin.scope%>&admin=<%=admin._id%>" style="margin-left: 0px;">region</a>
+                      
+                    </li>
+                    
+                        <li class="nav-item" role="presentation" style="margin-right: 0px;margin-left: 1%;width: 48%;background-color: #e4e1e1;"><a class="nav-link text-center" href="/get_admin/scope=global&admin=<%=admin._id%>" style="margin-left: 0px;">global</a></li>
+                   
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div style=" margin-right: 10%;margin-left: 10%;padding-top:2%;padding-bottom:5%;background-color: #dad9df;width:80%;max-height: 100%;height: 100%;margin-bottom: 5%;">
+        <% obj.forEach(function(objj){var flag=1; %>
+            <div class="card"  style="margin-left:20%; margin-right: 20%; margin-top: 10%; margin-bottom:10%">
+              
+               <a href="/desc_admin/img=<%= objj._id%>&admin=<%=admin._id%>"><img class="card-img-top" src="data:image/<%=objj.img.contentType%>;base64, 
+                <%=objj.img.data.toString('base64')%>"> </a>
+               
+            </div>
+            <div class="text-center">
+
+                <% if(objj.verify == 'yes'){ %>  
+           <a href="#"> <button class="btn btn-success"   disabled>VOTE <%=objj.count%> </button></a>
+          
+           <a href=""><button class="btn btn-primary" disabled> Verified</button></a>
+           <% }else{ %>
+            
+                <a href="#"> <button class="btn btn-success"  disabled >VOTE <%=objj.count%> </button></a>
+                <a href="/admin_check/img=<%=objj._id%>&admin=<%=admin._id%>"><button class="btn btn-primary">Verify</button></a>
+               <% } %>
+            <% }) %>
+            </div>
+    </div>
+    <script>
+
+        const img = localStorage.getItem('image');
+        
+        </script>
+
+    <script src="/static/js2/jquery.min.js"></script>
+    <script src="/static/bootstrap2/js/bootstrap.min.js"></script>
+    </div>
+</body>
+
+</html>

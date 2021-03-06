@@ -1,0 +1,92 @@
+app.get("/desc_admin/:id", (req, res) => {
+
+
+  var query = querystring.parse(req.params.id);
+
+
+
+  post_model.findById(query.img).populate("comments").exec(function (err, campy) {
+
+    res.render("desc", { obj: campy, user: null, cmt: campy,admin:query.admin });
+  })
+})
+
+
+app.get('/get_admin/:id',(req, res)=>{
+
+  var query = querystring.parse(req.params.id);
+  console.log(query);
+  var scope = query.scope;
+  var admin = query.admin;
+ 
+  post_model.find({scope},(err,item)=>{
+
+
+   
+    admin_model.findById(admin, (err, it)=>{
+
+    res.render('admin_post',{obj:item,admin:it});
+    
+    });
+  
+  
+  })
+
+
+})
+
+
+app.post('/get/post',(req,res)=>{
+var special_id = req.body.login[0];
+
+  admin_model.find({special_id},(err,item)=>{
+    var scope = item.scope;
+   
+    post_model.find({scope},(err,it)=>{
+
+      res.render('admin_post',{obj:it,admin:item[0]});
+    })
+  })
+  
+  
+  console.log(req.body);
+})
+
+
+app.get('/admin',(req,res)=>{
+ 
+
+  
+  res.render('Admin_login');
+})
+
+app.get('/admin_check/:id',(req,res)=>{
+
+  var query = querystring.parse(req.params.id);
+  
+  var img = query.img;
+  var admin = query.admin;
+
+  admin_model.findById(admin,(err,item)=>{
+
+
+    item.vote.push(img);
+
+    item.save();
+
+
+    });
+  post_model.findById(img,(err,item)=>{
+    console.log(item);
+    item.verify = 'yes';
+    item.save();
+    
+  })
+  
+  res.redirect("/get_admin/scope=global&admin="+admin);
+  
+})
+
+
+
+

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+  <title>Register_page</title>
+  <style media="screen">
+    form {
+      background-color: #c6fced;
+      padding: 20px;
+    }
+
+    table {
+      border-collapse: separate;
+      border-spacing: 40px 13px;
+    }
+
+
+  </style>
+ <script>
+  var stateObject = {
+  
+  
+  "Tamil-Nadu": { "Coimbatore": ["coimbatore-north", "coimbatore-south","mettupalayam","pollachi"],
+  "Salem": ["salem-west", "salem-east"],
+  "Chennai": ["chennai-east", "chennai-west","chennai-north"]
+  }
+  }
+  
+   window.onload =  function() {
+     var arr = document.getElementById("array").value;
+     var username = document.getElementById("username");
+    var countySel = document.getElementById("countySel"),
+  stateSel = document.getElementById("stateSel"),
+  districtSel = document.getElementById("districtSel");
+
+  
+  var arr1 = arr.split(",");
+  
+  console.log(arr1);
+  for (var country in stateObject) {
+    
+    
+  var option = document.createElement("option");
+  option.text = country;
+  option.value = country;
+  console.log(option);
+  countySel.add(option); 
+  
+  }
+  $('#username').on('keyup',function(){
+
+    var flag=0;
+      for(var i=0;i<arr1.length;i++)
+      {
+        if($('#username').val() == arr1[i])
+        {
+          $('#message1').html('username already exists').css('color', 'red');
+          flag=1;
+        }
+        
+        
+      }
+      if(flag == 0)
+    {$('#message1').html('')};
+})
+
+  countySel.onchange = function () {
+   
+  stateSel.length = 1; // remove all options bar first
+  districtSel.length = 1; // remove all options bar first
+  if (this.selectedIndex < 1) return; // done
+  for (var state in stateObject[this.value]) {
+   
+  var option = document.createElement("option");
+  option.text = state;
+  option.value = state;
+
+  console.log(option);
+  stateSel.add(option);
+  
+  }
+  }
+  countySel.onchange(); // reset in case page is reloaded
+  stateSel.onchange = function () {
+   
+
+  districtSel.length = 1; // remove all options bar first
+  if (this.selectedIndex < 1) return; // done
+  var district = stateObject[countySel.value][this.value];
+  
+  for (var i = 0; i < district.length; i++) {
+  districtSel.options[districtSel.options.length] = new Option(district[i], district[i]);
+  
+  }
+  }
+  }
+  </script>
+</head>
+
+<body>
+  <h2 class="Jumbotron" style="background-color:#8ad7c1;padding:20px;margin:auto;">Registration Form</h2>
+  <div class="container">
+    <form id="collect" action="/registration" method="post">
+      <table style="margin:auto; padding:10px;">
+        <tr>
+          <td><label for="user-name">Name</label></td>
+          <td><input  class="form-control" type="text" name="name" placeholder="Enter your Name" >
+            <input  class="form-control" type="text" name="initial" placeholder="Enter your Initial" ></td>
+            <input id="array" value="<%= array %>" hidden></input>
+          
+          <td><input value="sarathdhoni33@gmail.com" class="form-control" type="email" name="email" placeholder="Enter your E-Mail ID" hidden></td>
+        </tr>
+        <tr>
+          <td><label  for="user-gender">Gender</label></td>
+          <td>
+            <select name = "gender" class="form-control">
+              <option>Male</option>
+              <option>Female</option>
+              <option>Others</option>
+              <option>Prefer not to say</option>
+            </select>
+          </td>
+          <td><label  for="user-dob">Date of Birth</label></td>
+          <td><input name="dob" class="form-control" type="date" name="dob" placeholder="Enter your DOB" ></td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <hr />
+          </td>
+        </tr>
+
+        <tr>
+          <td><label for="user-id">User name </label></td>
+          
+          <td><input  id="username" class="form-control" type="text" name="userid" placeholder="Enter a unique username" ><span id='message1'></span></td>
+          <td><label for="user-passwd">Password</label></td>
+          <td><input  class="form-control" id="password" type="password" name="password" placeholder="Enter a password" >
+            <input class="form-control" id="confirm_password" type="password"  placeholder="Re-Enter a Password" r> <span id='message'></span>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="4">
+            <hr />
+          </td>
+        </tr>
+        
+        <tr>
+         
+          <td><label  for="user-location">Name of Location</label></td>
+          <td><textarea   name="location" style="width:100%;"></textarea></td>
+          <td><label  for="user-state">State</label></td>
+          <td>
+         
+            <select class="form-control"  name="state" id="countySel" size="1">
+              <optgroup>
+              <option value="00" >--- Select ---</option>
+            </optgroup>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label  for="user-district">District</label></td>
+          <td>
+            <select  name="district" class="form-control"   id="stateSel" size="1"required>
+              <optgroup>
+              <option value="00" >--- Select ---</option>
+              
+            </optgroup>
+            </select>
+            <div id="txtregion"></div>
+          </td>
+          <td><label  for="user-taluk">Taluk</label></td>
+          <td>
+            <select  name="taluk" class="form-control"  id="districtSel" size="1" required>
+            
+              
+            </optgroup>
+            </select>
+            <div id="txtplacename"></div>
+            
+      
+          
+          </td>
+        </tr>
+        </form>
+        <tr>
+          <td><label value="641001" for="user-pincode">Pincode</label></td>
+          <td><input name="pincode" class="form-control" type="text" name="pincode" placeholder="Pincode" required></td>
+          <td><label  value="9743" for="user-contactnumber">Contact Number</label></td>
+          <td><input name="contact" class="form-control" type="Text" name="contactnumber" placeholder="Phone Number" required></td>
+        </tr>
+      </table>
+      <div style="text-align:center;">
+        <button type="submit" form="collect" class="btn btn-outline-secondary btn-lg" >Register</button>
+      </div>
+    
+
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+</body>
+
+
+<script>
+  $('#password, #confirm_password').on('keyup', function () {
+  if ($('#password').val() == $('#confirm_password').val()) {
+    $('#message').html('Matching').css('color', 'green');
+  } else 
+    $('#message').html('Not Matching').css('color', 'red');
+});
+
+
+
+</script>
+
+</html>

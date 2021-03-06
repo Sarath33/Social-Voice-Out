@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Profile_page</title>
+  <link rel="stylesheet" href="/static/profile/styles.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+  <div id="profile-upper">
+    <header>
+      <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white transparency border-bottom border-light" id="transmenu">
+        <div class="nav-color container"><a class="navbar-brand text-success" href="#header">&nbsp;Social voice
+            out</a><button data-toggle="collapse" class="navbar-toggler collapsed" data-target="#navcol-1"><span></span><span></span><span></span></button>
+          <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item"><a class="nav-link" href="#">First Item</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Third Item</a></li>
+              <li class="dropdown nav-item"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Dropdown </a>
+                <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div id="profile-d">
+      <div id="profile-pic">
+        <img src="data:image/image/png;base64, <%=user.photo.data.toString('base64')%>">
+      </div>
+      <div id="u-name"><%= user.first_name %></div>
+      <div id="edit-profile"><i class="material-icons">Edit</i></div>
+    </div>
+
+  </div>
+
+  <div id="main-content">
+    <div class="tb">
+      <div class="td" id="l-col">
+        <div class="l-cnt">
+          <div class="cnt-label">
+            <i class="l-i" id="l-i-i"></i>
+            <span>Intro</span>
+            <div class="lb-action"><i class="material-icons">edit</i></div>
+          </div>
+          <div id="i-box">
+           
+            <div id="u-loc"><i class="material-icons">Location:</i><a href="#"><%=user.taluk%></a>, <a href="#"><%=user.district %>.</a></div>
+          </div>
+        </div>
+       
+           
+      </div>
+      <div class="td" id="m-col">
+        <% obj.forEach(function(objj){var flag=1; %>
+            
+          <% if(objj.post == "image"){ %>
+
+        <div class="post">
+          <div class="tb">
+            <a href="#" class="td p-p-pic"><img src="data:image/image/png;base64, <%=user.photo.data.toString('base64')%>" alt="Rajeev's profile pic"></a>
+            <div class="td p-r-hdr">
+              <div class="d-flex flex-column ml-2">  
+                UserName <small
+                class="text-primary">role-socialist</small> </div>
+             
+            </div>
+         
+          </div>
+          <a href="/desc/img=<%= objj._id%>&user=<%=user._id%>" class="p-cnt-v">
+            <img src="data:image/image/png;base64, <%=objj.file.toString('base64')%>">
+          </a>
+
+        </div>
+
+        <% }})%>
+
+        
+          <div>
+           
+          </div>
+
+      </div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+      <script type="text/javascript">
+        var date = new Date();
+        document.getElementById('curr-year').innerHTML = date.getFullYear();
+      </script>
+</body>
+
+</html>

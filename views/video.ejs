@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    
+</head>
+
+<body>
+
+    <div style="margin-right: 10%;margin-left: 10%;padding-top:2%;padding-bottom:5%;background-color: #dad9df;width:80%;max-height: 100%;height: 100%;margin-bottom: 5%;">
+        <% video.forEach(function(objj){ %>
+            <div class="card"  style="margin-left:20%; margin-right: 20%; margin-top: 10%; margin-bottom:10%">
+               <video class="card-img-top" controls>
+                   <source  src=" data:video/mp4;base64,<%=objj.file.toString('base64')%>" type="video/mp4">
+                </video>
+            </div>
+            
+            <% }) %>
+    </div>
+
+
+
+
+</body>
+</html>

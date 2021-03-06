@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="/static/bootstrap1/css/bootstrap1.min.css">
+    
+</head>
+
+<body style="padding: 0px;">
+    <div style="height: 125px;background-color: #121111;">
+        <p class="text-center" style="color: rgb(238,241,244);font-size: 26px;margin-top: 0px;padding-top: 40px;">SOCIAL VOICE OUT</p>
+    </div>
+    
+      
+
+    <div style="padding: 0px;background-color: #efeded;margin: 13%;height: 900px;margin-top: 40px;margin-bottom: 30px;">
+        <p style="width: 40%;margin-left: 32%;font-size: 38px;padding-top: 4%;">REGISTRATION DETAILS</p>
+        <div class="d-flex flex-row flex-wrap" style="height: 54%;">
+            <div class="d-flex flex-column flex-nowrap" style="width: 35%;margin: 2%;height: 100%;">
+                <p class="d-flex flex-row justify-content-end flex-nowrap" style="font-size: 21px;margin-top: 5%;margin-bottom: 5%;">NAME&nbsp; &nbsp; &nbsp;</p>
+                <p class="d-flex flex-row justify-content-end flex-nowrap" style="font-size: 21px;margin-bottom: 5%;margin-top: 5%;">&nbsp; E-MAIL&nbsp; &nbsp; &nbsp;</p>
+                <p class="d-flex flex-row justify-content-end" style="font-size: 21px;margin-top: 5%;margin-bottom: 5%;">REGION&nbsp; &nbsp; &nbsp;</p>
+            </div>
+            <div class="d-flex flex-column align-items-start " style="width: 32%;height: 100%;margin: 2%;">
+            <form id="make" action="/update_profile/<%=obj._id%>" method="post">
+            <input  class="get" id="ko"name="name" value="<%=obj.name%>"class="flex-row align-items-end" type="text" style="margin-top: 5%;margin-left: 0px;height: 34px;margin-bottom: 5%;width: 80%;" disabled required>
+           
+            <input class="get" id="ko1" value="<%=obj.email%>" type="email" name="email"style="margin-top: 5%;margin-left: 0px;height: 34px;margin-bottom: 5%;width: 80%;"disabled required>
+            
+           
+                
+                <select  class="get"  name="region"
+                    style="width: 80%;height: 34px;margin-top: 5%;margin-bottom: 5%;"disabled>
+                        <option  id="select" value="<%=obj.region%>" selected disabled> <%=obj.region%> </option>
+                        <option value="coimbatore" >coimbatore</option>
+                        <option value="chennai">chennai</option>
+                        <option value="salem">salem</option>
+                        <option value="erode">erode</option>
+                        <option value="thirunelveli">thirunelveli</option>
+                        <option value="thanjavur">Thanjavur</option>
+                        <option value="trichy">trichy</option>
+
+                    </optgroup>
+                    </select>
+                 
+                </form>        
+                    
+            </div>
+            
+            
+                <div style="height: 50px;margin-left: 41%;margin-top: -15%;width: 160px;">
+                   
+                <button onclick="change()" id="edit"class="btn btn-primary"    type="sumbit" style="height:100%; width:100%;margin-top: 5%;margin-bottom:5%;" >edit</button>
+                <button id="update"  type="submit" class="btn btn-success" form="make" style="height:100%; width:100%;margin-top: 5%;margin-bottom:5%;display: none;" >update</button>
+
+            </div>
+            
+        </div>
+    </div>
+    
+    <script>
+        var edit = document.getElementById("edit");
+        var update = document.getElementById("update");
+        var get = document.querySelectorAll(".get");
+
+         function change(){
+            update.style.display = "block";
+            get.forEach(item =>{
+                item.disabled = false;
+            })
+        }
+
+    </script>
+   
+    <script src="/static/js1/check.js"></script>
+    <script src="/static/js1/jquery.min.js"></script>
+    <script src="/static/bootstrap1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+

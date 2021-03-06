@@ -1,0 +1,376 @@
+/*app.get('/video/:id',(req,res)=>{
+  mongoClient.connect('mongodb+srv://yelp:Tech@1234@yelp.kmvtt.mongodb.net/test', { useNewUrlParser: true }, (err, client) => {
+      if (err) {
+          return err
+      }
+      let db = client.db('test')
+          let collection = db.collection('videos');
+
+        collection.find().toArray((err,item)=>{
+          if(err)
+          {
+            console.log(err);
+          }
+          
+          res.render("video",{video: item});
+        })
+
+    })
+
+})*/
+
+
+// login and signupp
+
+/*
+
+router.post(
+    "/signup",
+    [
+        check("username", "Please Enter a Valid Username")
+        .not()
+        .isEmpty(),
+        check("email", "Please enter a valid email").isEmail(),
+        check("password", "Please enter a valid password").isLength({
+            min: 6
+        })
+    ],
+    async (req, res) => {
+        const user_details = req.body.user;
+        console.log("got in here");
+        
+        const errors = validationResult(user_details);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array()
+            });
+        }
+            const username = user_details.name;
+            const email = user_details.email;
+            const password = user_details.password;
+    
+        try {
+            let user = await User.findOne({
+                email
+            });
+
+            if (user) {
+                return res.status(400).json({
+                    msg: "User Already Exists"
+                });
+            }
+
+            user = new User({
+                username,
+                email,
+                password
+            });
+
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password, salt);
+
+            await user.save();
+
+            const payload = {
+                user: {
+                    id: user.id
+                }
+            };
+
+            jwt.sign(
+                payload,
+                "randomString", {
+                    expiresIn: 10000
+                },
+                (err, token) => {
+                    if (err) throw err;
+                    res.status(200).json({
+                        token
+                    });
+                }
+            );
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).send("Error in Saving");
+        }
+    }
+);
+
+
+
+
+router.post(
+    "/login",
+    [
+      check("email", "Please enter a valid email").isEmail(),
+      check("password", "Please enter a valid password").isLength({
+        min: 1
+      })
+    ],
+    async (req, res) => {
+        const user_details = req.body.user;
+      const errors = validationResult(user_details);
+  
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          errors: errors.array()
+        });
+      }
+  
+      const email = user_details.email;
+      const password  = user_details.password;
+      try {
+        let user = await User.findOne({
+          email
+        });
+       
+        if (!user)
+          return res.status(400).json({
+            message: "User Not Exist"
+          });
+  
+        if(password == user.password)
+        {
+       
+        }
+        else
+        {
+          return res.status(400).json({
+            message: "incorrect password"
+          });
+        }
+       
+      
+  
+        const payload = {
+          user: {
+            id: user.id
+          }
+        };
+  
+        jwt.sign(
+          payload,
+          "randomString",
+          {
+            expiresIn: 3600
+          },
+          (err, token) => {
+            if (err) throw err;
+            
+
+            post_model.find({}, (err, items) => { 
+              if (err) { 
+                  console.log(err); 
+              } 
+              else { 
+               
+                User.findById(user._id,(err,it) =>{
+                  console.log(items.count);
+                  res.redirect("/get/scope=global&user="+it._id+"");
+                })
+              }
+            });
+        
+            
+          }
+        );
+      } catch (e) {
+        console.error(e);
+        res.status(500).json({
+          message: "Server Error"
+        });
+      }
+    }
+  );
+
+  router.get("/me", auth, async (req, res) => {
+    try {
+      // request.user is getting fetched from Middleware after token authentication
+      const user = await User.findById(req.user.id);
+      res.json(user);
+    } catch (e) {
+      res.send({ message: "Error in Fetching user" });
+    }
+  });
+
+  router.post("/check", async (req,res) => {
+    
+    const user = req.body.user1.uname; 
+    
+    try{
+      let  name = await User.findOne({user});
+     // console.log(name);
+    if (name) {
+      
+     alert("user exists");
+    
+       res.redirect("/login");
+        
+       
+        }
+        else
+        {
+          const img = null;
+          
+          res.render("register",{image:img,username: user});
+        }
+      }
+    
+    catch(err){
+      console.log(err);
+
+    }
+  })
+
+  router.get("/home/:id", (req,res) =>{
+    var detail = req.params.id;
+
+    mongoClient.connect('mongodb+srv://yelp:Tech@1234@yelp.kmvtt.mongodb.net/test', { useNewUrlParser: true }, (err, client) => {
+    if (err) {
+        return err
+    }
+    let db = client.db('test')
+        let collection = db.collection('videos');
+
+    collection.find({}, (err, items) => { 
+      if (err) { 
+          console.log(err); 
+      } 
+      else { 
+        details.findById(detail,(err,it) =>{
+          console.log(items.count);
+         res.redirect("/get/scope=global&user="+it._id+"");
+        })
+           
+      }
+  })
+})
+});
+  
+  router.post("/home/:id", async (req,res) => {
+
+    
+  
+    var detail = req.params.id;
+
+    post_model.find({}, (err, items) => { 
+      if (err) { 
+          console.log(err); 
+      } 
+      else { 
+        User.findById(detail,(err,it) =>{
+        console.log(items.count);
+        res.redirect("/get/scope=global&user="+it._id+"");
+        }
+        )
+           
+      }
+    });
+
+  });
+
+  router.post("/apply", async (req,res) => {
+
+    const obj = req.body;
+    const username = req.body.user;
+
+     User.create(obj,(err,item)=>{
+      if(err)
+      {
+        console.log(err);
+      }
+      else
+      {
+       
+        res.render("image_post",{image: null,usery:item});
+      }
+    });
+
+   
+    
+    
+  });
+
+
+
+  router.get("/profile/:id", (req,res) =>{
+
+  
+   /* MongoClient.connect("mongodb+srv://sarath:9o8fQHGbcM5iU5Ek@cluster0.ij4h9.mongodb.net/natours?retryWrites=true&w=majority", function(err, db) {
+  if (err) {
+    console.log(err);
+  }
+
+  var dbo = db.db("natours");
+  var query = { username: "red3" };
+  dbo.collection("images").find(query).toArray(function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(result);
+    db.close();
+  });
+});*/
+
+
+/*User.findById(req.params.id, function(err,item){
+  console.log(item);
+  res.render("profile",{obj:item});
+})
+res.render("registration",{array: null});
+  
+})
+  
+*/
+
+
+
+/*app.post("/post_upload/:id", upload.single('post'), (req, res) => {
+  var username = req.params.id;
+  details.findById(username, async (err, item) => {
+    if (err) {
+      console.log(err);
+    }
+    else {
+
+
+
+      var title = req.body.title;
+      var description = req.body.description;
+      var region = req.body.region;
+      var obj = {
+        username: item.userid,
+        img: {
+          data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+          contentType: 'image/png'
+        },
+        title: title,
+        descriptions: description,
+        scope:region,
+        count:0,
+        verify:'no'
+      };
+
+
+      post_model.create(obj, (err, item) => {
+        if (err) {
+          console.log(err);
+        } else {
+            console.log(item);
+        }
+      })
+      var username = item.user;
+      try {
+        let take = await post_model.find({ username });
+        
+      }
+      catch (err) {
+        console.log(err);
+      }
+      console.log(item._id);
+      res.redirect("/user/home/" + item._id + "");
+    }
+  });
+
+})*/
+
