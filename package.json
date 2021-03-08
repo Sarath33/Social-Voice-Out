@@ -10,7 +10,7 @@
   },
   "engine":{
     "node": "14.15.1"
-  }
+  },
   "author": "sarath",
   "license": "ISC",
   "dependencies": {
