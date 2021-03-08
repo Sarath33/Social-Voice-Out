@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 // Replace this with your MONGOURI.
 mongoose.set('useFindAndModify', false);
-const MONGOURI = "mongodb+srv://yelp:Tech@1234@yelp.kmvtt.mongodb.net/test";
+const MONGOURI = "mongodb+srv://yelp:HIUtp2l4WxPGRxkj@yelp.kmvtt.mongodb.net/test";
 
 const InitiateMongoServer = async () => {
   try {
